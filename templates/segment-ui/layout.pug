@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    //- meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name='subject' content=_.get(locals, 'seo.subject'))
+    meta(name='keywords' content=_.get(locals, 'seo.keywords'))
+    meta(name='description' content=_.get(locals, 'seo.description'))
+    meta(property='og:title' content=_.get(locals, 'seo.og:title'))
+    meta(property='og:description' content=_.get(locals, 'seo.og:description'))
+    title= title
+    link(rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css')
+    //- link(rel="stylesheet" href="//cdn.jsdelivr.net/nanumsquare/1.0/nanumsquare.css")
+
+    block header
+
+  body
+    block body
+
+    footer
+      strong #{footer}
+
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js')
+  if script
+    script= script
+
+  block footer

@@ -1,0 +1,31 @@
+{
+  "name": "publish-workflowy",
+  "version": "1.0.0",
+  "description": "Generates static html from workflowy.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eces/publish-workflowy.git"
+  },
+  "keywords": [
+    "workflowy",
+    "generator",
+    "html",
+    "blog",
+    "cms",
+    "github",
+    "pages"
+  ],
+  "author": "Jin Lee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eces/publish-workflowy/issues"
+  },
+  "homepage": "https://github.com/eces/publish-workflowy#readme",
+  "dependencies": {
+    "node-workflowy": "^1.0.1"
+  }
+}

@@ -1,23 +1,28 @@
 require('debugs/init')
 
-const argv = require('minimist')(process.argv.slice(2))
 const chalk = require('chalk')
 const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
+const _ = require('lodash')
 const debug = require('debug')('publish-workflowy:cli')
 const Workflowy = require('node-workflowy')
 
 const Build = require('./build')
 
-module.exports = async function(output = console.log) {
+module.exports = async function (output = console.log, override_argv = null) {
+  let argv = require('minimist')(process.argv.slice(2))
+  if(override_argv){
+    argv = override_argv
+    debug('argv: %O', argv)
+  }
   if (argv.v || argv.version) {
     output(chalk.green(`
-    Version ${require('./package.json').version}
+    Version ${require(__dirname + '/../package.json').version}
     `.trim()))
     return
   }
-  
+
   if (argv._.length != 1) {
     output(
       chalk.green(`Usage:`),
@@ -27,7 +32,7 @@ module.exports = async function(output = console.log) {
     )
     return
   }
-  
+
   // get list
   output(
     chalk.dim(`[1/4]`),
@@ -40,9 +45,9 @@ module.exports = async function(output = console.log) {
   // throw new Error('sdf')
   const workflowy = new Workflowy
   try {
-    output(process.cwd())
+    // output(process.cwd())
     const list = await workflowy.findUrl(argv._[0])
-    output(list)
+    // output(list)
 
     output(
       chalk.dim(`[2/4]`),
@@ -54,14 +59,16 @@ module.exports = async function(output = console.log) {
     if (config) {
       locals = yaml.safeLoad(fs.readFileSync(config), 'utf8')
     }
-  
+
+    // fetch remote template
+
     // build
-    const build = new Build({
-      content: list
-    })
+    const build = new Build(_.merge(argv.build, {
+      content: list,
+    }))
     const template = argv.t || argv.template || 'segment-ui'
     const files = build.render(template, config)
-  
+
     // post process -> save output
     output(
       chalk.dim(`[3/4]`),
@@ -75,7 +82,7 @@ module.exports = async function(output = console.log) {
     } else {
       output(files)
     }
-      
+
 
   } catch (error) {
     debug(error)
@@ -86,17 +93,4 @@ module.exports = async function(output = console.log) {
       `
     )
   }
-
-  
-  console.dir(argv)
-  // const program = require('commander')
-  
-  // program
-  //   .version(require('./package.json').version)
-  //   .option('-u')
-  
-  
-  // /*
-  //  * -
-  //  */
 }

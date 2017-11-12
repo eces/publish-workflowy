@@ -41,5 +41,8 @@
   },
   "debugs": [
     "publish-workflowy*"
-  ]
+  ],
+  "devDependencies": {
+    "chai": "^4.1.2"
+  }
 }

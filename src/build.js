@@ -19,11 +19,20 @@ class Builder {
     const files = []
 
     const _render = (parent = null, content, level=1) => {
-      content.path = content.id+'.html'
+      const has_route = (e) => {
+        return (e.note && e.note[0] == '/')
+      }
+      if(has_route(content)){
+        content.path = path.join(content.note.split(' ')[0] + '.html').slice(1)
+      }else{
+        content.path = content.id+'.html'
+      }
+      
       content.level = level
       if(parent){
         content.parent = {
           path: parent.path,
+          level: parent.level,
         }
       }
       
@@ -34,7 +43,7 @@ class Builder {
       // }
       if(content.children && content.children.length){
         content.children = content.children.map((subcontent) => {
-          if(subcontent.note && (subcontent.note[0] == '#') && (+subcontent.note[1]) === +level+1){
+          if(has_route(subcontent)){
             return _render(content, subcontent, level+1)
           }else{
             return subcontent
@@ -56,7 +65,7 @@ class Builder {
     // add filename to content
     this.content.id = 'index'
     const root = _render(null, this.content)
-    debug('%j', root)
+    debug('%O', root)
 
     /*
      * [{filename:'',html:''}]

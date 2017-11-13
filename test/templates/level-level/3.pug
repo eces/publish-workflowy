@@ -1,0 +1,24 @@
+extends layout
+
+block body
+  h1 parent.level #{parent.level}
+  h1 level #{level}
+  a(href='../'+parent.path) Back
+  //- if parent.level != level
+  //-   a(href='../'+path) Back
+  //- else
+  //-   a(href='../'+path) Back
+
+  pre= JSON.stringify(parent)
+  h1= name
+  p= note
+
+  each item in children
+    if !item.path
+      h5= item.name
+      p= item.note
+
+  ul
+    each item in children
+      if item.path
+        li: a(href=item.path)= item.path

@@ -3,6 +3,7 @@ require('debugs/init')
 const chalk = require('chalk')
 const yaml = require('js-yaml')
 const fs = require('fs')
+const mkdirp = require('mkdirp')
 const path = require('path')
 const _ = require('lodash')
 const debug = require('debug')('publish-workflowy:cli')
@@ -77,7 +78,9 @@ module.exports = async function (output = console.log, override_argv = null) {
     const outputPath = argv.o || argv.out || argv.output || argv.dest
     if (outputPath) {
       files.forEach(e => {
-        fs.writeFileSync(path.join(process.cwd(), outputPath, e.path), e.html)
+        const filepath = path.join(process.cwd(), outputPath, e.path)
+        mkdirp.sync(path.dirname(filepath))
+        fs.writeFileSync(filepath, e.html)
       })
     } else {
       output(files)

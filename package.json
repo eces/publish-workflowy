@@ -36,6 +36,7 @@
     "js-yaml": "^3.10.0",
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
     "node-workflowy": "^1.0.1",
     "pug": "^2.0.0-rc.4"
   },

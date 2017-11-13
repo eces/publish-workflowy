@@ -77,7 +77,7 @@ module.exports = async function (output = console.log, override_argv = null) {
     const outputPath = argv.o || argv.out || argv.output || argv.dest
     if (outputPath) {
       files.forEach(e => {
-        fs.writeFileSync(path.join(process.cwd(), outputPath, e.filename), e.html)
+        fs.writeFileSync(path.join(process.cwd(), outputPath, e.path), e.html)
       })
     } else {
       output(files)

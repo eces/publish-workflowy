@@ -1,0 +1,18 @@
+extends layout
+
+block body
+  a(href=parent.path) Back
+  pre= JSON.stringify(parent)
+  h1= name
+  p= note
+
+  each item in children
+    if !item.path
+    h5= item.name
+    p= item.note
+
+
+  ul
+    each item in children
+      if item.path
+        li: a(href=item.path)= item.path

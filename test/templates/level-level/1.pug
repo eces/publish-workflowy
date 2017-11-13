@@ -1,0 +1,9 @@
+extends layout
+
+block body
+  strong level=#{level}
+
+  ul
+    each item in children
+      if item.path
+        li: a(href=item.path)= item.path

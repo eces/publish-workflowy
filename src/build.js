@@ -18,27 +18,45 @@ class Builder {
     // add custom level handling
     const files = []
 
-    const _render = (content, level=0) => {
-      content.filename = content.id+'.html'
+    const _render = (parent = null, content, level=1) => {
+      content.path = content.id+'.html'
+      content.level = level
+      if(parent){
+        content.parent = {
+          path: parent.path,
+        }
+      }
+      
+      // let has_level = false
+      // if(content.note && (content.note[0] == '#') && (+content.note[1]-1) === +level){
+      //   has_level = true
+      //   debug(has_level)
+      // }
+      if(content.children && content.children.length){
+        content.children = content.children.map((subcontent) => {
+          if(subcontent.note && (subcontent.note[0] == '#') && (+subcontent.note[1]) === +level+1){
+            return _render(content, subcontent, level+1)
+          }else{
+            return subcontent
+          }
+        })
+      }
+      
       files.push({
-        filename: content.filename,
+        path: content.path,
         html: pug.renderFile(
           path.join(this.templateBasePath, templateName, level+'.pug'), 
           _.merge(locals, content),
         )
       })
-      let has_level = false
-      if(content.note[0] == '#' && content.note[1]+1 === level){
-        has_level = true
-      }
-      if(has_level && content.children && content.children.length){
-        content.children.forEach(_render, level+1)
-      }
+      
+      return content
     }
   
     // add filename to content
     this.content.id = 'index'
-    _render(this.content)
+    const root = _render(null, this.content)
+    debug('%j', root)
 
     /*
      * [{filename:'',html:''}]

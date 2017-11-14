@@ -14,6 +14,7 @@ class Builder {
   
   render (templateName, locals = {}) {
     locals._ = _
+    locals.moment = require('moment')
     // TODO: check path if git-repo, npm package or not
     // add custom level handling
     const files = []

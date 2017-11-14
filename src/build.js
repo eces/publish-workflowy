@@ -9,6 +9,7 @@ class Builder {
     this.templateEngine = 'pug'
     this.templateBasePath = opt.templateBasePath || path.join(process.cwd(), './templates')
     this.content = opt.content || {} 
+    this.autolinker = new (require('autolinker'))({})
     debug('%O', this)
   }
   
@@ -36,6 +37,8 @@ class Builder {
           level: parent.level,
         }
       }
+
+      content.note = this.autolinker.link(content.note)
       
       // let has_level = false
       // if(content.note && (content.note[0] == '#') && (+content.note[1]-1) === +level){

@@ -1,6 +1,6 @@
 {
   "name": "publish-workflowy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates static html from workflowy.com",
   "main": "index.js",
   "scripts": {

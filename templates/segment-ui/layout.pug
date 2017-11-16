@@ -8,10 +8,16 @@ html(lang="en")
     meta(name='description' content=_.get(locals, 'seo.description'))
     meta(property='og:title' content=_.get(locals, 'seo.og:title'))
     meta(property='og:description' content=_.get(locals, 'seo.og:description'))
-    title= title
+    title=_.get(locals, 'title')
     link(rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css')
     //- link(rel="stylesheet" href="//cdn.jsdelivr.net/nanumsquare/1.0/nanumsquare.css")
     style.
+      html {
+        font-size: 0.75rem !important;
+      }
+      p {
+        line-height: 1.85rem;
+      }
       .item-container {
         padding-left: 3rem;
         margin: 1rem 0rem;
@@ -22,6 +28,11 @@ html(lang="en")
       }
       .item-container > .item-note {
         color: #666;
+        word-break: break-word;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        font-size: 1rem;
+        margin-left: 2px;
       }
       .item-children-container {
         border-left: solid 1px #f0f0f0;
@@ -39,13 +50,14 @@ html(lang="en")
       .item-link {
         font-weight: normal;
         border-bottom: solid 1px;
-        margin-left: 1.5rem;
+        //- margin-left: 1.5rem;
       }
       .item-link:before {
         content: "•";
         margin-left: -1.5rem;
         color: #333;
         padding: 0 0.5rem;
+        float: left;
       }
       footer {
         font-size: 1rem;

@@ -26,12 +26,15 @@ class Builder {
     // add custom level handling
     const files = []
 
+    const has_route = (e) => {
+      return (e.note && e.note[0] == '/')
+    }
     const _render = (parent = null, content, level=1) => {
-      const has_route = (e) => {
-        return (e.note && e.note[0] == '/')
-      }
-      if(has_route(content)){
+      content.has_route = has_route(content)
+      if(content.has_route){
         content.path = path.join(content.note.split(' ')[0] + '.html').slice(1)
+        // remove code from note
+        content.note = content.note.slice(content.note.split(' ')[0].length)
       }else{
         content.path = content.id+'.html'
       }
@@ -45,6 +48,11 @@ class Builder {
       }
 
       content.note = this.marked(content.note, {
+        gfm: true,
+        tables: true,
+        breaks: true,
+        pedantic: false,
+        sanitize: false,      
         breaks: true,
         smartypants: true,
       })
@@ -59,9 +67,8 @@ class Builder {
         content.children = content.children.map((subcontent) => {
           if(has_route(subcontent)){
             return _render(content, subcontent, level+1)
-          }else{
-            return subcontent
           }
+          return subcontent
         })
       }
       
@@ -69,7 +76,7 @@ class Builder {
         path: content.path,
         html: pug.renderFile(
           path.join(this.templateBasePath, templateName, level+'.pug'), 
-          _.merge(locals, content),
+          _.merge({}, locals, content),
         )
       })
       

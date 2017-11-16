@@ -17,14 +17,11 @@ mixin list(children)
           a.item-link(href=item.path)= item.path
 
 block body
-  h1.ui.dividing.header(style='padding-top:3rem')= name
-  p!= note
-
-  div(style='margin-left: -3rem')
-    +list(children)
-  
-    //- each item in children
-    //-   if item.has_route
-    //-     .item-container
-    //-       h4.ui.header.item-name
-    //-       a.item-link(href=item.path)= item.path
+  .ui.text.container
+    h1.ui.dividing.header(style='padding-top:3rem')= name
+    p!= note
+    
+    div(style='margin-left: -3rem')
+      +list(children)
+    
+    a.ui.fluid.button(href='../'+parent.path) Back

@@ -61,6 +61,7 @@ describe('publish-workflowy', () => {
          --template=level-level \
          --build.templateBasePath=./test/templates \
          --output=./test/temp
+         --configure=./test/config.yml
       */
       outputs = []
       await publishWorkflowy.cli((...a) => {

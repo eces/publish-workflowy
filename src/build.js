@@ -44,6 +44,7 @@ class Builder {
         content.parent = {
           path: parent.path,
           level: parent.level,
+          title: parent.title,
         }
       }
 
@@ -52,7 +53,7 @@ class Builder {
         tables: true,
         breaks: true,
         pedantic: false,
-        sanitize: false,      
+        sanitize: false,
         breaks: true,
         smartypants: true,
       })
@@ -76,7 +77,9 @@ class Builder {
         path: content.path,
         html: pug.renderFile(
           path.join(this.templateBasePath, templateName, level+'.pug'), 
-          _.merge({}, locals, content),
+          _.merge({
+            title: content.name,
+          }, locals, content),
         )
       })
       

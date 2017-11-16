@@ -56,7 +56,7 @@ module.exports = async function (output = console.log, override_argv = null) {
     )
     // get locals
     const config = argv.c || argv.config || argv.configure
-    let locals = null
+    let locals = {}
     if (config) {
       locals = yaml.safeLoad(fs.readFileSync(config), 'utf8')
     }
@@ -68,7 +68,7 @@ module.exports = async function (output = console.log, override_argv = null) {
       content: list,
     }))
     const template = argv.t || argv.template || 'segment-ui'
-    const files = build.render(template, config)
+    const files = build.render(template, locals)
 
     // post process -> save output
     output(

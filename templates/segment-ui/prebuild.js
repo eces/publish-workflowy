@@ -7,5 +7,10 @@ module.exports = (build) => {
       </div>
       `
     }
+    build.renderer.hr = () => {
+      return `
+      <div class="ui divider"></div>
+      `
+    }
   }
 }

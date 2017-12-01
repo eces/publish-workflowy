@@ -1,3 +1,4 @@
+const fs = require('fs')
 const pug = require('pug')
 const path = require('path')
 const yaml = require('js-yaml')
@@ -9,17 +10,18 @@ class Builder {
     this.templateEngine = 'pug'
     this.templateBasePath = opt.templateBasePath || path.join(process.cwd(), './templates')
     this.content = opt.content || {} 
-    this.autolinker = new (require('autolinker'))({})
     this.marked = require('marked')
-    this.marked.setOptions({
-      highlight: (code, lang) => {
-        return require('highlight.js').highlightAuto(code, (lang && [lang])).value
-      }
-    })
+    this.renderer = new (this.marked).Renderer()
     debug('%O', this)
   }
   
   render (templateName, locals = {}) {
+    const prebuildScriptPath = path.join(this.templateBasePath, templateName, 'prebuild.js')
+    debug(prebuildScriptPath)
+    if (fs.existsSync(prebuildScriptPath)) {
+      require(prebuildScriptPath)(this)
+    }
+
     locals._ = _
     locals.moment = require('moment')
     // TODO: check path if git-repo, npm package or not
@@ -57,8 +59,8 @@ class Builder {
         sanitize: false,
         breaks: true,
         smartypants: true,
+        renderer: this.renderer,
       })
-      // content.note = this.autolinker.link(content.note)
       
       // let has_level = false
       // if(content.note && (content.note[0] == '#') && (+content.note[1]-1) === +level){

@@ -12,7 +12,7 @@ html(lang="en")
     meta(property='og:description' content=_.get(locals, 'seo.og:description'))
     title=_.get(locals, 'title')
     link(rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css')
-    link(rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css')
+    //- link(rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css')
     //- link(rel="stylesheet" href="https://cdn.jsdelivr.net/nanumsquare/1.0/nanumsquare.css")
     //- link(rel="stylesheet" href="https:///cdn.jsdelivr.net/font-nanum/1.0/nanummyeongjo/nanummyeongjo.css")
     //- link(rel="stylesheet" href="https:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css")
@@ -100,21 +100,21 @@ html(lang="en")
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.0.3/turbolinks.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js')
+    //- script(src='https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.0.3/turbolinks.js')
+    //- script(src='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js')
     script.
-      Turbolinks.start();
-      $(document).on('turbolinks:click', function(event) {
-        NProgress.start();
-        if(location.protocol == 'file:'){
-          event.preventDefault()
-        }
-      });
-      $(document).on('turbolinks:render', function() {
-        NProgress.done();
-        NProgress.remove();
-      });
+      //- Turbolinks.start();
+      //- $(document).on('turbolinks:click', function(event) {
+      //-   NProgress.start();
+      //-   if(location.protocol == 'file:'){
+      //-     event.preventDefault()
+      //-   }
+      //- });
+      //- $(document).on('turbolinks:render', function() {
+      //-   NProgress.done();
+      //-   NProgress.remove();
+      //- });
       hljs.initHighlightingOnLoad();
     if script
       script= script

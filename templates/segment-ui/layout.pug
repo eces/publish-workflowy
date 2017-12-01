@@ -2,7 +2,9 @@ doctype html
 html(lang="en")
   head
     meta(charset="utf-8")
-    //- meta(name="viewport" content="width=device-width, initial-scale=1")
+    if _.get(locals, 'favicon')
+      link(rel='icon' type='image/png' href=_.get(locals, 'favicon'))
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     meta(name='subject' content=_.get(locals, 'seo.subject'))
     meta(name='keywords' content=_.get(locals, 'seo.keywords'))
     meta(name='description' content=_.get(locals, 'seo.description'))

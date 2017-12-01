@@ -65,12 +65,17 @@ class Builder {
       //   debug(has_level)
       // }
       if(content.children && content.children.length){
-        content.children = content.children.map((subcontent) => {
-          if(has_route(subcontent)){
-            return _render(content, subcontent, level+1)
-          }
-          return subcontent
-        })
+        content.children = content.children
+          .filter((subcontent) => {
+            // completed list will be hidden
+            return subcontent.is_completed !== true
+          })
+          .map((subcontent) => {
+            if(has_route(subcontent)){
+              return _render(content, subcontent, level+1)
+            }
+            return subcontent
+          })
       }
       
       files.push({

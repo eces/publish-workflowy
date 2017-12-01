@@ -35,6 +35,7 @@ class Builder {
         content.path = path.join(content.note.split(' ')[0] + '.html').slice(1)
         // remove code from note
         content.note = content.note.slice(content.note.split(' ')[0].length)
+        content.note = content.note.replace(/&gt;+/g, '>')
       }else{
         content.path = content.id+'.html'
       }

@@ -67,7 +67,13 @@ module.exports = async function (output = console.log, override_argv = null) {
     const build = new Build(_.merge(argv.build, {
       content: list,
     }))
-    const template = argv.t || argv.template || 'segment-ui'
+    let template = argv.t || argv.template || 'segment-ui'
+    if( path.parse(template).dir ) {
+      // custom local path OR git repo
+    } else {
+      // use pre-downloaded template
+      build.templateBasePath = path.join(__dirname, '../templates')
+    }
     const files = build.render(template, locals)
 
     // post process -> save output

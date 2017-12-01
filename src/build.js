@@ -59,6 +59,7 @@ class Builder {
         sanitize: false,
         breaks: true,
         smartypants: true,
+        smartLists: true,
         renderer: this.renderer,
       })
       

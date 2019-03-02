@@ -41,7 +41,7 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "moment": "^2.19.2",
-    "node-workflowy": "^1.0.1",
+    "node-workflowy": "^1.0.3",
     "pug": "^2.0.0-rc.4"
   },
   "debugs": [

@@ -5,7 +5,6 @@ const yaml = require('js-yaml')
 const fs = require('fs')
 const mkdirp = require('mkdirp')
 const path = require('path')
-const _ = require('lodash')
 const debug = require('debug')('publish-workflowy:cli')
 const Workflowy = require('node-workflowy')
 
@@ -64,15 +63,20 @@ module.exports = async function (output = console.log, override_argv = null) {
     // fetch remote template
 
     // build
-    const build = new Build(_.merge(argv.build, {
-      content: list,
-    }))
+    const build = new Build(
+      Object.assign(argv.build || {}, {
+        content: list
+      })
+    );
     let template = argv.t || argv.template || 'segment-ui'
-    if( path.parse(template).dir ) {
+    if( (path.parse(template).dir || '').length ) {
       // custom local path OR git repo
+      build.templateBasePath = ''
     } else {
       // use pre-downloaded template
-      build.templateBasePath = path.join(__dirname, '../templates')
+      if (!build.templateBasePath) {
+        build.templateBasePath = path.join(__dirname, '../templates')
+      }
     }
     const files = build.render(template, locals)
 

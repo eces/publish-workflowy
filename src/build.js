@@ -1,9 +1,8 @@
 const fs = require('fs')
 const pug = require('pug')
 const path = require('path')
-const yaml = require('js-yaml')
+const lodash = require('lodash')
 const debug = require('debug')('publish-workflowy:build')
-const _ = require('lodash')
 
 class Builder {
   constructor (opt = {}) {
@@ -22,7 +21,7 @@ class Builder {
       require(prebuildScriptPath)(this)
     }
 
-    locals._ = _
+    locals._ = lodash
     locals.moment = require('moment')
     // TODO: check path if git-repo, npm package or not
     // add custom level handling
@@ -86,7 +85,7 @@ class Builder {
         path: content.path,
         html: pug.renderFile(
           path.join(this.templateBasePath, templateName, level+'.pug'), 
-          _.merge({
+          Object.assign({
             title: content.name,
           }, locals, content),
         )

@@ -74,9 +74,10 @@ module.exports = async function (output = console.log, override_argv = null) {
       build.templateBasePath = ''
     } else {
       // use pre-downloaded template
-      if (!build.templateBasePath) {
-        build.templateBasePath = path.join(__dirname, '../templates')
-      }
+      // if (!build.templateBasePath) {
+      //   build.templateBasePath = path.join(__dirname, '../templates')
+      // }
+      build.templateBasePath = path.join(__dirname, '../templates')
     }
     const files = build.render(template, locals)
 
